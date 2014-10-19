@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZVGallery</title>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="zvg">
+
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="nav navbar-nav navbar-left">
+          <a class="navbar-brand" href="#/" title="Main page">{{ 'ZVGallery' | translate }}</a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+            <li class="dropdown" ng-hide="loggedIn">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{ 'Login' | translate }}</a>
+                <div class="dropdown-menu login-form">
+                    <form class="form">
+                        <div class="alert alert-danger" role="alert" ng-show="showError">Invalid username or password.</div>
+                        <div class="form-group">
+                            <input name="username" type="text" class="form-control" ng-model="username" placeholder="{{ 'Username' | translate }}" />
+                        </div>
+                        <div class="form-group">
+                            <input name="password" type="password" class="form-control" ng-model="password" placeholder="{{ 'Password' | translate}}" />
+                        </div>
+                        <input type="submit" class="btn btn-default" value="{{ 'Login' | translate }}" ng-click="login()" />
+                    </form>
+                </div>
+            </li>
+            <li ng-show="loggedIn"><a class="pointer" href="#" ng-click="logout()">{{ 'Logout' | translate }}</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+
+    <div ng-view></div>
+
+</div>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-cookies.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/angular-translate.min.js"></script>
+<script src="js/base.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/login.js"></script>
+</body>
+
+</html>
