@@ -1,0 +1,12 @@
+<ol class="breadcrumb">
+    <li ng-repeat="entry in breadcrumbs"><a href="#/list?path={{entry.path}}">{{ entry.name }}</a></li>
+    <li class="active">{{ activeBreadcrumb }}</li>
+</ol>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="auto" height="auto">
+            <source src="" id="video-player-source" type="video/mp4">
+        </video>
+    </div>
+</div>

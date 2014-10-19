@@ -68,6 +68,8 @@ zvg.controller('ListController', function($scope, $routeParams, $http, $filter) 
             return '#/list?path=' + entry.fullpath;
         } else if (/image\/?.*/.test(entry.type)) {
             return '#/image?path=' + entry.fullpath;
+        } else if (/video\/?.*/.test(entry.type)) {
+            return '#/video?path=' + entry.fullpath;
         } else {
             return '#';
         }
