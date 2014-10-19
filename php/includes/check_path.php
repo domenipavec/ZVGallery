@@ -15,23 +15,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+ 
+defined('ZVG_PHP') || die("No direct access allowed.");
 
-if (!array_key_exists('c', $_GET)) {
-    die("You need to specify command.");
+if (!array_key_exists('p', $_GET)) {
+    die("You have to specify path.");
 }
 
-if (preg_match('/[a-zA-Z0-9\-]+/', $_GET['c'], $matches) != 1 || $_GET['c'] != $matches[0]) {
-    die("Invalid command.");
+/* No dots in path, so we cannot leave gallery folder */
+if (strpos($_GET['p'], '..') !== FALSE) {
+    die("Invalid path.");
 }
-
-$filename = realpath(getcwd() . "/php/" . $_GET['c'] . ".php");
-if (!$filename) {
-    die("Command does not exist.");
-}
-
-define('ZVG_PHP', true);
-session_start();
-
-require_once('config.php');
-
-require($filename);

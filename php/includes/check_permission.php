@@ -15,23 +15,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+ 
+defined('ZVG_PHP') || die("No direct access allowed.");
 
-if (!array_key_exists('c', $_GET)) {
-    die("You need to specify command.");
+if (!array_key_exists('username', $_SESSION)) {
+    $status = array('success' => false, 'error' => 'You need to be logged in to access this.');
+    die(json_encode($status));
 }
-
-if (preg_match('/[a-zA-Z0-9\-]+/', $_GET['c'], $matches) != 1 || $_GET['c'] != $matches[0]) {
-    die("Invalid command.");
-}
-
-$filename = realpath(getcwd() . "/php/" . $_GET['c'] . ".php");
-if (!$filename) {
-    die("Command does not exist.");
-}
-
-define('ZVG_PHP', true);
-session_start();
-
-require_once('config.php');
-
-require($filename);

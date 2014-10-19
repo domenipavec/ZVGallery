@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-var LoginController = zvg.controller("LoginController", function($scope, $http) {
+var LoginController = zvg.controller("LoginController", function($scope, $http, $route) {
     $scope.loggedIn = false;
     
     $http.get("backend.php?c=user").success(function(data) {
@@ -25,6 +25,7 @@ var LoginController = zvg.controller("LoginController", function($scope, $http) 
     $scope.logout = function() {
         $http.get("backend.php?c=logout").success(function() {
             $scope.loggedIn = false;
+            $route.reload();
         });
     };
     
@@ -41,6 +42,7 @@ var LoginController = zvg.controller("LoginController", function($scope, $http) 
         }).success(function(data) {
             if (data.success == true) {
                 $scope.loggedIn = true;
+                $route.reload();
             } else {
                 $scope.showError = true;
             }

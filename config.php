@@ -15,23 +15,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+ 
+defined('ZVG_PHP') || die("No direct access allowed.");
 
-if (!array_key_exists('c', $_GET)) {
-    die("You need to specify command.");
-}
+$_ZVG['tmp_folder'] = 'tmp';
+$_ZVG['gallery_folder'] = 'gallery';
 
-if (preg_match('/[a-zA-Z0-9\-]+/', $_GET['c'], $matches) != 1 || $_GET['c'] != $matches[0]) {
-    die("Invalid command.");
-}
+$_ZVG['thumbnail_width'] = 200;
+$_ZVG['thumbnail_height'] = 150;
+$_ZVG['thumbnail_background'] = 'white';
 
-$filename = realpath(getcwd() . "/php/" . $_GET['c'] . ".php");
-if (!$filename) {
-    die("Command does not exist.");
-}
-
-define('ZVG_PHP', true);
-session_start();
-
-require_once('config.php');
-
-require($filename);
+$_ZVG['image_width'] = 1200;
+$_ZVG['image_height'] = 1200;

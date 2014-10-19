@@ -2,3 +2,10 @@
     padding: 15px;
     width: 200px;
 }
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+}
+.nowrap a {
+    color: #000;
+}

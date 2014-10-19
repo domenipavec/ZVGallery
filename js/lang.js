@@ -21,7 +21,10 @@ zvg.config(function($translateProvider) {
         'Login': 'Login',
         'Logout': 'Logout',
         'Username': 'Username',
-        'Password': 'Password'
+        'Password': 'Password',
+        'Invalid path.': 'Invalid path.',
+        'You need to be logged in to access this.': 'You need to be logged in to access this.',
+        'Home': 'Home'
     });
     
     $translateProvider.translations('sl', {
@@ -29,7 +32,10 @@ zvg.config(function($translateProvider) {
         'Login': 'Prijava',
         'Logout': 'Odjavi me',
         'Username': 'Uporabniško ime',
-        'Password': 'Geslo'
+        'Password': 'Geslo',
+        'Invalid path.': 'Neveljavna pot.',
+        'You need to be logged in to access this.': 'Za dostop se morate prijaviti.',
+        'Home': 'Domov'
     });
     
     $translateProvider.determinePreferredLanguage();

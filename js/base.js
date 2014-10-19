@@ -15,4 +15,8 @@
  *  limitations under the License.
  */
 
-var zvg = angular.module('zvg', ['pascalprecht.translate']);
+var zvg = angular.module('zvg', ['pascalprecht.translate', 'ngRoute']);
+
+zvg.config(function($routeProvider) {
+    $routeProvider.otherwise({redirectTo: '/list'});
+});
