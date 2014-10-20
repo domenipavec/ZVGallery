@@ -15,21 +15,21 @@
  *  limitations under the License.
  */
 
-zvg.controller('BreadcrumbsController', function($scope, $filter, $route, $rootScope) {
+zvg.controller('BreadcrumbsController', function($scope, $filter, $pathList, $rootScope) {
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        var path = $route.current.params['path'];
-        if (path == undefined) {
-            path = '';
-        }
         var breadcrumbs = [{name: $filter('translate')('Home'), path: '/'}];
         var current_path = '';
-        angular.forEach(path.split("/"), function(value) {
+        angular.forEach($pathList.path().split("/"), function(value) {
             if (value.length < 1) {
                 return;
             }
             current_path += '/' + value;
             breadcrumbs.push({name:value, path:current_path});
         });
+        var file = $pathList.file();
+        if (file != '') {
+            breadcrumbs.push({name:file});
+        };
         $scope.activeBreadcrumb = breadcrumbs.pop().name;
         $scope.breadcrumbs = breadcrumbs;
      });

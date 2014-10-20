@@ -22,7 +22,7 @@ zvg.config(function($routeProvider) {
     });
 });
 
-zvg.controller('ListController', function($scope, $http, $filter, $pathList) {
+zvg.controller('ListController', function($scope, $pathList) {
     $pathList.get(function(list) {
         $scope.entries = list;
     });

@@ -15,12 +15,12 @@
  *  limitations under the License.
  */
 
-zvg.factory('$pathList', function ($routeParams, $rootScope, $http, $location) {
+zvg.factory('$pathList', function ($route, $rootScope, $http, $location) {
     var loaded_path = '';
     var loaded_entries = [];
     
     var pathfun = function() {
-        var path = $routeParams['path'];
+        var path = $route.current.params['path'];
         if (typeof path !== 'string' || path.length < 2) {
             path = '/';
         } else {
@@ -88,9 +88,9 @@ zvg.factory('$pathList', function ($routeParams, $rootScope, $http, $location) {
         },
         path: pathfun,
         file: function() {
-            var file = $routeParams['file'];
+            var file = $route.current.params['file'];
             if (typeof file !== 'string' || file.length < 1) {
-                $location.path('/list?path=/');
+                file = '';
             }
             return file;
         },
