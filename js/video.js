@@ -28,17 +28,6 @@ zvg.controller('VideoController', function($scope, $routeParams, $http, $filter,
         $location.path('/');
     }
     
-    $scope.breadcrumbs = [{name: $filter('translate')('Home'), path: '/'}];
-    var current_path = '';
-    angular.forEach(path.split("/"), function(value) {
-        if (value.length < 1) {
-            return;
-        }
-        current_path += '/' + value;
-        $scope.breadcrumbs.push({name:value, path:current_path});
-    });
-    $scope.activeBreadcrumb = $scope.breadcrumbs.pop().name;
-    
     var player = _V_("video-player");
     player.ready(function() {
         player.pause();

@@ -44,6 +44,11 @@
 </div>
 
 <div class="container">
+    
+    <ol class="breadcrumb" ng-controller="BreadcrumbsController">
+        <li ng-repeat="entry in breadcrumbs"><a href="#/list?path={{entry.path}}">{{ entry.name }}</a></li>
+        <li class="active">{{ activeBreadcrumb }}</li>
+    </ol>
 
     <div ng-view></div>
 
@@ -57,6 +62,7 @@
 <script src="js/base.js"></script>
 <script src="js/lang.js"></script>
 <script src="js/login.js"></script>
+<script src="js/breadcrumbs.js"></script>
 <script src="js/list.js"></script>
 <script src="js/image.js"></script>
 <script src="js/video.js"></script>

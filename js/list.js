@@ -28,17 +28,6 @@ zvg.controller('ListController', function($scope, $routeParams, $http, $filter) 
         path = '/';
     }
     
-    $scope.breadcrumbs = [{name: $filter('translate')('Home'), path: '/'}];
-    var current_path = '';
-    angular.forEach(path.split("/"), function(value) {
-        if (value.length < 1) {
-            return;
-        }
-        current_path += '/' + value;
-        $scope.breadcrumbs.push({name:value, path:current_path});
-    });
-    $scope.activeBreadcrumb = $scope.breadcrumbs.pop().name;
-    
     $http.get('backend.php?c=list&p='+path).success(function(data) {
         $scope.error = '';
         if (data.success == true) {

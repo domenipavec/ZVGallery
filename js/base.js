@@ -20,3 +20,32 @@ var zvg = angular.module('zvg', ['pascalprecht.translate', 'ngRoute']);
 zvg.config(function($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/list'});
 });
+
+zvg.directive('zvgBreadcrumbs', function($filter, $route, $rootScope) {
+    return {
+        link: function(scope) {
+            var update = function() {
+                var path = $route.current.params['path'];
+                if (path == undefined) {
+                    path = '';
+                }
+                var breadcrumbs = [{name: $filter('translate')('Home'), path: '/'}];
+                var current_path = '';
+                angular.forEach(path.split("/"), function(value) {
+                    if (value.length < 1) {
+                        return;
+                    }
+                    current_path += '/' + value;
+                    breadcrumbs.push({name:value, path:current_path});
+                });
+                scope.activeBreadcrumb = breadcrumbs.pop().name;
+                scope.breadcrumbs = breadcrumbs;
+            };
+            update();
+            $rootScope.$on('$locationChangeSuccess', function(event) {
+                update();
+            });
+        },
+        templateUrl: 'templates/breadcrumbs.html'
+    };
+});
