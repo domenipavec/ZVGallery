@@ -44,10 +44,10 @@ if (get_filetype($dir_path) == 'dir') {
         }
         
         $name = pathinfo($gallerypath);
-        $name = $name['filename'];
         
         $status['entries'][] = array(
-            'name' => $name,
+            'name' => $name['filename'],
+            'file' => $name['basename'],
             'fullpath' => $fullpath,
             'type' => $type
         );

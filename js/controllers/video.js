@@ -22,16 +22,13 @@ zvg.config(function($routeProvider) {
     });
 });
 
-zvg.controller('VideoController', function($scope, $routeParams, $http, $filter, $location) {
-    var path = $routeParams['path'];
-    if (path == undefined) {
-        $location.path('/');
-    }
+zvg.controller('VideoController', function($scope, $pathList) {
+    var filepath = $pathList.path_file();
     
     var player = _V_("video-player");
     player.ready(function() {
         player.pause();
-        $("#video-player-source").attr("src", "backend.php?c=video&p="+path);
+        $("#video-player-source").attr("src", "backend.php?c=video&p="+filepath);
         player.load();
     });
     

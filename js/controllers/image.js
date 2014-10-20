@@ -22,11 +22,6 @@ zvg.config(function($routeProvider) {
     });
 });
 
-zvg.controller('ImageController', function($scope, $routeParams, $http, $filter, $location) {
-    var path = $routeParams['path'];
-    if (path == undefined) {
-        $location.path('/');
-    }
-    
-    $scope.path = path;
+zvg.controller('ImageController', function($scope, $pathList) {
+    $scope.filepath = $pathList.path_file();
 });

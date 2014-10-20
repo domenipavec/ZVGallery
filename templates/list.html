@@ -1,14 +1,12 @@
-<div class="alert alert-danger" role="alert" ng-show="error">{{ error | translate }}</div>
-
 <div class="row">
     <div class="col-lg-2 col-md-3 col-sm-4" ng-repeat="entry in entries">
         <div class="thumbnail">
-            <a href="{{ entrylink(entry) }}" title="{{entry.name}}">
-                <img ng-src="backend.php?c=thumbnail&p={{ entry.fullpath }}" alt="{{entry.name}}" />
+            <a href="{{ entry.link }}" title="{{entry.name}}">
+                <img ng-src="{{ entry.thumbnail }}" alt="{{entry.name}}" />
             </a>
             <div class="caption nowrap">
-                <a href="{{ entrylink(entry) }}" title="{{entry.name}}">
-                    <span class="glyphicon" ng-class="type2glyph(entry.type)"></span> {{entry.name}}
+                <a href="{{ entry.link }}" title="{{entry.name}}">
+                    <span class="glyphicon" ng-class="entry.glyph"></span> {{entry.name}}
                 </a>
             </div>
         </div>

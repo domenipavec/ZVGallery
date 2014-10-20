@@ -22,45 +22,8 @@ zvg.config(function($routeProvider) {
     });
 });
 
-zvg.controller('ListController', function($scope, $routeParams, $http, $filter) {
-    var path = $routeParams['path'];
-    if (path == undefined) {
-        path = '/';
-    }
-    
-    $http.get('backend.php?c=list&p='+path).success(function(data) {
-        $scope.error = '';
-        if (data.success == true) {
-            $scope.entries = data.entries;
-        } else {
-            $scope.error = data.error;
-        }
+zvg.controller('ListController', function($scope, $http, $filter, $pathList) {
+    $pathList.get(function(list) {
+        $scope.entries = list;
     });
-    
-    $scope.type2glyph = function(type) {
-        var glyph = 'glyphicon-file';
-        var types = {
-            'glyphicon-picture': /image\/?.*/,
-            'glyphicon-film': /video\/?.*/,
-            'glyphicon-folder-close': /dir/
-        };
-        angular.forEach(types, function(value, key) {
-            if (value.test(type)) {
-                glyph = key;
-            }
-        });
-        return glyph;
-    };
-    
-    $scope.entrylink = function(entry) {
-        if (entry.type == 'dir') {
-            return '#/list?path=' + entry.fullpath;
-        } else if (/image\/?.*/.test(entry.type)) {
-            return '#/image?path=' + entry.fullpath;
-        } else if (/video\/?.*/.test(entry.type)) {
-            return '#/video?path=' + entry.fullpath;
-        } else {
-            return '#';
-        }
-    };
 });

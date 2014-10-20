@@ -49,6 +49,8 @@
         <li ng-repeat="entry in breadcrumbs"><a href="#/list?path={{entry.path}}">{{ entry.name }}</a></li>
         <li class="active">{{ activeBreadcrumb }}</li>
     </ol>
+    
+    <div class="alert alert-danger" role="alert" ng-show="error">{{ error | translate }}</div>
 
     <div ng-view></div>
 
@@ -61,11 +63,12 @@
 <script src="js/angular-translate.min.js"></script>
 <script src="js/base.js"></script>
 <script src="js/lang.js"></script>
-<script src="js/login.js"></script>
-<script src="js/breadcrumbs.js"></script>
-<script src="js/list.js"></script>
-<script src="js/image.js"></script>
-<script src="js/video.js"></script>
+<script src="js/pathlist.js"></script>
+<script src="js/controllers/login.js"></script>
+<script src="js/controllers/breadcrumbs.js"></script>
+<script src="js/controllers/list.js"></script>
+<script src="js/controllers/image.js"></script>
+<script src="js/controllers/video.js"></script>
 </body>
 
 </html>
