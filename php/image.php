@@ -42,7 +42,9 @@ if (!is_dir($dir)) {
 if (!is_file($imagepath)) {
     $cmd = 'convert  "';
     $cmd .= $gallerypath;
-    $cmd .= '" -resize ';
+    $cmd .= '" -quality ';
+    $cmd .= $_ZVG['image_quality'];
+    $cmd .= ' -resize ';
     $cmd .= $_ZVG['image_width'];
     $cmd .= 'x';
     $cmd .= $_ZVG['image_height'];

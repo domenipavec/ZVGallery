@@ -23,7 +23,9 @@ $_ZVG['gallery_folder'] = 'gallery';
 
 $_ZVG['thumbnail_width'] = 200;
 $_ZVG['thumbnail_height'] = 150;
+$_ZVG['thumbnail_quality'] = 50;
 $_ZVG['thumbnail_background'] = 'white';
 
 $_ZVG['image_width'] = 1200;
 $_ZVG['image_height'] = 1200;
+$_ZVG['image_quality'] = 90;

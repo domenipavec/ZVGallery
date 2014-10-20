@@ -41,7 +41,9 @@ function create_thumbnail($source, $destination) {
     $cmd .= $_ZVG['thumbnail_width'];
     $cmd .= 'x';
     $cmd .= $_ZVG['thumbnail_height'];
-    $cmd .= ' -strip -quality 95 "PNG8:';
+    $cmd .= ' -strip -quality ';
+    $cmd .= $_ZVG['thumbnail_quality'];
+    $cmd .= ' "';
     $cmd .= $destination;
     $cmd .= '"';
     exec($cmd);
@@ -56,7 +58,7 @@ function get_thumbnail($fullpath) {
         return FALSE;
     }
     
-    $thumbnailpath = $_ZVG['tmp_folder'] . '/thumbnails' . rtrim($fullpath, '/') . '.png';
+    $thumbnailpath = $_ZVG['tmp_folder'] . '/thumbnails' . rtrim($fullpath, '/') . '.jpg';
 
     // make thumbnail subdir if does not exist
     $dir = pathinfo($thumbnailpath);
@@ -102,7 +104,9 @@ function get_thumbnail($fullpath) {
             if (count($images) > 0) {
                 $cmd = 'montage "';
                 $cmd .= implode('" "', $images);
-                $cmd .= '" -tile 2x2 -geometry ';
+                $cmd .= '" -quality ';
+                $cmd .= $_ZVG['thumbnail_quality'];
+                $cmd .= ' -tile 2x2 -geometry ';
                 $cmd .= $_ZVG['thumbnail_width']/2-4;
                 $cmd .= 'x';
                 $cmd .= $_ZVG['thumbnail_height']/2-4;
@@ -136,4 +140,4 @@ if (($thumbnailpath = get_thumbnail($_GET['p'])) === FALSE) {
 }
 
 header("X-Sendfile: $thumbnailpath");
-header("Content-type: image/png");
+header("Content-type: image/jpeg");
