@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-zvg.factory('$pathList', function ($route, $rootScope, $http, $location) {
+zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter) {
     var loaded_path = '';
     var loaded_entries = [];
     
@@ -56,6 +56,14 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location) {
         return glyph;
     };
     
+    var entry_sortname = function(entry) {
+        if (entry.type == 'dir') {
+            return 'd' + entry.name;
+        } else {
+            return 'f' + entry.name;
+        }
+    };
+    
     var parse_entries = function(list) {
         var parsed = [];
         angular.forEach(list, function(entry) {
@@ -63,10 +71,15 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location) {
                 thumbnail: 'backend.php?c=thumbnail&p='+entry.fullpath,
                 link: entry_link(entry),
                 name: entry.name,
-                glyph: entry_glyph(entry)
+                glyph: entry_glyph(entry),
+                sortname: entry_sortname(entry)
             });
         });
-        return parsed;
+        return sort_entries(parsed);
+    };
+    
+    var sort_entries = function(list) {
+        return $filter('orderBy')(list, 'sortname');
     };
     
     return {
