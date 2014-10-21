@@ -26,6 +26,18 @@ $status = array('success' => false, 'error' => 'Invalid path.');
 
 $dir_path = $_ZVG['gallery_folder'] . $_GET['p'];
 if (get_filetype($dir_path) == 'dir') {
+    
+    $lmdate = filemtime($dir_path);
+    $lmdatestr = gmdate("D, d M Y H:i:s", $lmdate);
+    header("Cache-control: public, no-cache");
+    header_remove('Pragma');
+    header("Last-Modified: " . $lmdatestr . " GMT");
+    if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+        strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $lmdate) {
+        header("HTTP/1.1 304 Not Modified");
+        exit();
+    }
+
     $status['success'] = true;
     $status['entries'] = array();
     

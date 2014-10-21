@@ -57,3 +57,6 @@ if (!is_file($imagepath)) {
 
 header("X-Sendfile: $imagepath");
 header("Content-type: $type");
+header("Cache-control: public, max-age=3600");
+header("Expires: " . gmdate('D, d M Y H:i:s', time() + 3600) . " GMT");
+header_remove('Pragma');
