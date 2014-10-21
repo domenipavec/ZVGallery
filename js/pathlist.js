@@ -16,8 +16,13 @@
  */
 
 zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter) {
-    var loaded_path = '';
-    var loaded_entries = [];
+    var state = {
+        path: '',
+        entries_files: [],
+        entries_dirs: [],
+        sort_type: 'auto',
+        sort_reverse: false
+    };
     
     var pathfun = function() {
         var path = $route.current.params['path'];
@@ -55,48 +60,57 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
         });
         return glyph;
     };
-    
-    var entry_sortname = function(entry) {
-        if (entry.type == 'dir') {
-            return 'd' + entry.name;
-        } else {
-            return 'f' + entry.name;
-        }
-    };
-    
+        
     var parse_entries = function(list) {
-        var parsed = [];
+        state.entries_files = [];
+        state.entries_dirs = [];
         angular.forEach(list, function(entry) {
-            parsed.push({
+            var parsed = {
                 thumbnail: 'backend.php?c=thumbnail&p='+entry.fullpath,
                 link: entry_link(entry),
                 name: entry.name,
                 glyph: entry_glyph(entry),
-                sortname: entry_sortname(entry)
-            });
+                date: entry.date
+            };
+            if (entry.type == 'dir') {
+                state.entries_dirs.push(parsed);
+            } else {
+                state.entries_files.push(parsed);
+            }
         });
-        return sort_entries(parsed);
+        sort_entries();
     };
     
-    var sort_entries = function(list) {
-        return $filter('orderBy')(list, 'sortname');
+    var combine_entries = function() {
+        state.entries = [].concat(state.entries_dirs).concat(state.entries_files);
+    };
+    
+    var sort_entries = function() {
+        if (state.sort_type == 'auto') {
+            state.entries_files = $filter('orderBy')(state.entries_files, 'date', state.sort_reverse);
+            state.entries_dirs = $filter('orderBy')(state.entries_dirs, 'name', state.sort_reverse);
+        } else {
+            state.entries_files = $filter('orderBy')(state.entries_files, state.sort_type, state.sort_reverse);
+            state.entries_dirs = $filter('orderBy')(state.entries_dirs, state.sort_type, state.sort_reverse);
+        }
+        combine_entries();
     };
     
     return {
         get: function(callback) {
             var path = pathfun();
-            if (loaded_path != path) {
+            if (state.path != path) {
                 $http.get('backend.php?c=list&p='+path).success(function(data) {
                     $rootScope.error = '';
                     if (data.success == true) {
-                        loaded_entries = parse_entries(data.entries);
-                        callback(loaded_entries);
+                        parse_entries(data.entries);
+                        callback(state);
                     } else {
                         $rootScope.error = data.error;
                     }
                 });
             } else {
-                callback(loaded_entries);
+                callback(state);
             }
         },
         path: pathfun,
@@ -109,6 +123,30 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
         },
         path_file: function() {
             return this.path() + '/' + this.file();
+        },
+        toolbar: {
+            options: ['auto', 'name', 'date'],
+            click: function(type) {
+                if (state.sort_type == type) {
+                    state.entries_files.reverse();
+                    state.entries_dirs.reverse();
+                    combine_entries();
+                    state.sort_reverse = !state.sort_reverse;
+                } else {
+                    state.sort_type = type;
+                    state.sort_reverse = false;
+                    sort_entries();
+                }
+                this.class.auto = '';
+                this.class.name = '';
+                this.class.date = '';
+                this.class[state.sort_type] = state.sort_reverse?'glyphicon-sort-by-attributes-alt':'glyphicon-sort-by-attributes';
+            },
+            class: {
+                auto: 'glyphicon-sort-by-attributes',
+                name: '',
+                date: ''
+            }
         }
     };
 });

@@ -18,13 +18,39 @@
 
 <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
-        <div class="nav navbar-nav navbar-left">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="#/" title="Main page">{{ 'ZVGallery' | translate }}</a>
         </div>
 
-        <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav" ng-controller="ToolbarController">
+            <li class="dropdown">
+                <a href class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-sort"></span> 
+                    {{ 'Sort' | translate }}
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-repeat="item in sort.options">
+                        <a href ng-click="sort.click(item)">
+                            {{ 'sort-'+item | translate}}
+                            <span class="glyphicon pull-right" ng-class="sort.class[item]"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
             <li class="dropdown" ng-hide="loggedIn">
-                <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{ 'Login' | translate }}</a>
+                <a class="dropdown-toggle" href data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    {{ 'Login' | translate }}
+                </a>
                 <div class="dropdown-menu login-form">
                     <form class="form">
                         <div class="alert alert-danger" role="alert" ng-show="showError">Invalid username or password.</div>
@@ -38,8 +64,12 @@
                     </form>
                 </div>
             </li>
-            <li ng-show="loggedIn"><a class="pointer" href="#" ng-click="logout()">{{ 'Logout' | translate }}</a></li>
-        </ul>
+            <li ng-show="loggedIn"><a class="pointer" href ng-click="logout()">
+                <span class="glyphicon glyphicon-log-out"></span>
+                {{ 'Logout' | translate }}
+            </a></li>
+          </ul>
+        </div>
     </div>
 </div>
 
@@ -69,6 +99,7 @@
 <script src="js/controllers/list.js"></script>
 <script src="js/controllers/image.js"></script>
 <script src="js/controllers/video.js"></script>
+<script src="js/controllers/toolbar.js"></script>
 </body>
 
 </html>

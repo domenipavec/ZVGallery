@@ -15,15 +15,6 @@
  *  limitations under the License.
  */
 
-zvg.config(function($routeProvider) {
-    $routeProvider.when('/list', {
-        templateUrl: 'templates/list.html',
-        controller: 'ListController'
-    });
-});
-
-zvg.controller('ListController', function($scope, $pathList) {
-    $pathList.get(function(state) {
-        $scope.state = state;
-    });
+zvg.controller("ToolbarController", function($scope, $pathList) {
+    $scope.sort = $pathList.toolbar;
 });

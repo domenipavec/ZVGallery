@@ -24,7 +24,11 @@ zvg.config(function($translateProvider) {
         'Password': 'Password',
         'Invalid path.': 'Invalid path.',
         'You need to be logged in to access this.': 'You need to be logged in to access this.',
-        'Home': 'Home'
+        'Home': 'Home',
+        'Sort': 'Sort',
+        'sort-name': 'by Name',
+        'sort-date': 'by Date',
+        'sort-auto': 'Automatic'
     });
     
     $translateProvider.translations('sl', {
@@ -35,7 +39,11 @@ zvg.config(function($translateProvider) {
         'Password': 'Geslo',
         'Invalid path.': 'Neveljavna pot.',
         'You need to be logged in to access this.': 'Za dostop se morate prijaviti.',
-        'Home': 'Domov'
+        'Home': 'Domov',
+        'Sort': 'Razvrsti',
+        'sort-name': 'po Imenu',
+        'sort-date': 'po Datumu',
+        'sort-auto': 'Samodejno'
     });
     
     $translateProvider.determinePreferredLanguage();
