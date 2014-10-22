@@ -1,9 +1,11 @@
-<div class="row">
+<div class="row" id="zvg-thumbnails">
     <div class="col-lg-2 col-md-3 col-sm-4" ng-repeat="entry in state.entries">
         <div class="thumbnail" ng-class="{'thumbnail-dir': entry.dir}">
-            <a href="{{ entry.link }}" title="{{entry.name}}">
-                <img ng-src="{{ entry.thumbnail }}" alt="{{entry.name}}" />
-            </a>
+            <div class="zvg-image">
+                <a href="{{ entry.link }}" title="{{entry.name}}">
+                    <img ng-src="{{ entry.thumbnail }}" alt="{{entry.name}}" />
+                </a>
+            </div>
             <div class="caption nowrap">
                 <a href="{{ entry.link }}" title="{{entry.name}}">
                     <span class="glyphicon" ng-class="entry.glyph"></span> {{entry.name}}
