@@ -70,7 +70,8 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
                 link: entry_link(entry),
                 name: entry.name,
                 glyph: entry_glyph(entry),
-                date: entry.date
+                date: entry.date,
+                dir: entry.type == 'dir'
             };
             if (entry.type == 'dir') {
                 state.entries_dirs.push(parsed);

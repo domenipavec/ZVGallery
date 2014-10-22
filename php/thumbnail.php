@@ -106,7 +106,9 @@ function get_thumbnail($fullpath) {
                 $cmd .= implode('" "', $images);
                 $cmd .= '" -quality ';
                 $cmd .= $_ZVG['thumbnail_quality'];
-                $cmd .= ' -tile 2x2 -geometry ';
+                $cmd .= ' -background "';
+                $cmd .= $_ZVG['thumbnail_dir_background'];
+                $cmd .= '" -tile 2x2 -geometry ';
                 $cmd .= $_ZVG['thumbnail_width']/2-4;
                 $cmd .= 'x';
                 $cmd .= $_ZVG['thumbnail_height']/2-4;
@@ -119,7 +121,7 @@ function get_thumbnail($fullpath) {
                 $cmd .= 'x';
                 $cmd .= $_ZVG['thumbnail_height'];
                 $cmd .= ' xc:';
-                $cmd .= $_ZVG['thumbnail_background'];
+                $cmd .= $_ZVG['thumbnail_dir_background'];
                 $cmd .= ' "';
                 $cmd .= $thumbnailpath;
                 $cmd .= '"';

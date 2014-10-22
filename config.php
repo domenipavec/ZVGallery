@@ -25,6 +25,7 @@ $_ZVG['thumbnail_width'] = 200;
 $_ZVG['thumbnail_height'] = 150;
 $_ZVG['thumbnail_quality'] = 50;
 $_ZVG['thumbnail_background'] = 'white';
+$_ZVG['thumbnail_dir_background'] = '#f5f5f5';
 
 $_ZVG['image_width'] = 1200;
 $_ZVG['image_height'] = 1200;
