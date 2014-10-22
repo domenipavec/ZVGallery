@@ -37,6 +37,8 @@ if (get_filetype($dir_path) == 'dir') {
         header("HTTP/1.1 304 Not Modified");
         exit();
     }
+    
+    header('Content-Type: text/html; charset=UTF-8');
 
     $status['success'] = true;
     $status['entries'] = array();
@@ -74,11 +76,22 @@ if (get_filetype($dir_path) == 'dir') {
             $date = date('Y:m:d H:i:s', filemtime($gallerypath));
         }
         
-        $name = pathinfo($gallerypath);
+        // Hack to support unicode
+        // if there's no '/', we're probably dealing with just a filename
+        // so just put an 'a' in front of it
+        if (strpos($gallerypath, '/') === false)
+        {
+            $name = pathinfo('a'.$gallerypath);
+        }
+        else
+        {
+            $gallerypath= str_replace('/', '/a', $gallerypath);
+            $name = pathinfo($gallerypath);
+        }
         
         $status['entries'][] = array(
-            'name' => $name['filename'],
-            'file' => $name['basename'],
+            'name' => substr($name["filename"],1),
+            'file' => substr($name["basename"],1),
             'fullpath' => $fullpath,
             'type' => $type,
             'date' => $date
