@@ -1,7 +1,8 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-show="show" ng-swipe-left="nextImage()" ng-swipe-right="previousImage()">
     <div class="panel-body">
         <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="auto" height="auto">
             <source src="" id="video-player-source" type="video/mp4">
         </video>
     </div>
+    <div zvg-controls></div>
 </div>

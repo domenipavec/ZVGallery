@@ -23,16 +23,26 @@ zvg.config(function($routeProvider) {
 });
 
 zvg.controller('VideoController', function($scope, $pathList) {
-    var filepath = $pathList.path_file();
-    
-    var player = _V_("video-player");
-    player.ready(function() {
-        player.pause();
-        $("#video-player-source").attr("src", "backend.php?c=video&p="+filepath);
-        player.load();
-    });
-    
-    $scope.$on('$destroy', function() {
-        player.dispose();
+    var state = null;
+    $pathList.get(function(s) {
+        state = s;
+        if (state.current === null) {
+            $rootScope.error = "Not a valid file.";
+        } else {
+            $scope.show = true;
+            
+            var player = _V_("video-player");
+            player.ready(function() {
+                player.pause();
+                $("#video-player-source").attr("src", state.entries_files[state.current].video);
+                player.load();
+            });
+            
+            $scope.$on('$destroy', function() {
+                player.dispose();
+            });
+        }
+        $scope.nextImage = $pathList.next;
+        $scope.previousImage = $pathList.previous;
     });
 });

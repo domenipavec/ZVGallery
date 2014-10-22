@@ -1,0 +1,11 @@
+<div class="panel-footer text-center" ng-controller="ControlsController">
+    <div class="pull-left">
+        <a href title="{{ 'First' | translate}}" ng-hide="isFirst" ng-click="first()"><span class="glyphicon glyphicon-step-backward"></span></a>
+        <a href title="{{ 'Previous' | translate}}" ng-hide="isFirst" ng-click="previous()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+    <strong>{{entry.name}}</strong>
+    <div class="pull-right">
+        <a href title="{{ 'Next' | translate}}" ng-hide="isLast" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        <a href title="{{ 'Last' | translate}}" ng-hide="isLast" ng-click="last()"><span class="glyphicon glyphicon-step-forward"></span></a>
+    </div>
+</div>

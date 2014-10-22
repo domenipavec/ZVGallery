@@ -28,7 +28,12 @@ zvg.config(function($translateProvider) {
         'Sort': 'Sort',
         'sort-name': 'by Name',
         'sort-date': 'by Date',
-        'sort-auto': 'Automatic'
+        'sort-auto': 'Automatic',
+        'Not a valid file.': 'Not a valid file.',
+        'First': 'First',
+        'Previous': 'Previous',
+        'Next': 'Next',
+        'Last': 'Last'
     });
     
     $translateProvider.translations('sl', {
@@ -43,9 +48,19 @@ zvg.config(function($translateProvider) {
         'Sort': 'Razvrsti',
         'sort-name': 'po Imenu',
         'sort-date': 'po Datumu',
-        'sort-auto': 'Samodejno'
+        'sort-auto': 'Samodejno',
+        'Not a valid file.': 'Datoteka ni veljavna.',
+        'First': 'Prva',
+        'Previous': 'Prejšnja',
+        'Next': 'Naslednja',
+        'Last': 'Zadnja'
+    });
+    
+    $translateProvider.registerAvailableLanguageKeys(['en', 'sl'], {
+        'en_US': 'en',
+        'en_UK': 'en',
+        'sl': 'sl'
     });
     
     $translateProvider.determinePreferredLanguage();
-    $translateProvider.preferredLanguage('sl');
 });

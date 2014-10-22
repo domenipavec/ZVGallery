@@ -22,7 +22,8 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
         entries_dirs: [],
         entries: [],
         sort_type: 'auto',
-        sort_reverse: false
+        sort_reverse: false,
+        current: null
     };
     
     var pathfun = function() {
@@ -33,6 +34,14 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
             path = path.replace(/\/+$/,'');
         }
         return path;
+    };
+    
+    var filefun = function() {
+        var file = $route.current.params['file'];
+        if (typeof file !== 'string' || file.length < 1) {
+            file = '';
+        }
+        return file;
     };
     
     var entry_link = function(entry) {
@@ -68,8 +77,11 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
         angular.forEach(list, function(entry) {
             var parsed = {
                 thumbnail: 'backend.php?c=thumbnail&p='+entry.fullpath,
+                image: 'backend.php?c=image&p='+entry.fullpath,
+                video: 'backend.php?c=video&p='+entry.fullpath,
                 link: entry_link(entry),
                 name: entry.name,
+                file: entry.file,
                 glyph: entry_glyph(entry),
                 date: entry.date,
                 dir: entry.type == 'dir'
@@ -83,8 +95,35 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
         sort_entries();
     };
     
+    var parse_file = function() {
+        var file = filefun();
+        var previous = state.current;
+        state.current = null;
+        if (file != '') {
+            if (previous != null) {
+                if (state.entries_files[previous].file == file) {
+                    state.current = previous;
+                } else if ((previous + 1) < state.entries_files.length && state.entries_files[previous+1].file == file) {
+                    state.current = previous+1;
+                } else if ((previous - 1) >= 0 && state.entries_files[previous-1].file == file) {
+                    state.current = previous-1;
+                }
+            }
+            if (state.current === null) {
+                var i = 0, len = state.entries_files.length;
+                for (; i < len; i++) {
+                    if (state.entries_files[i].file == file) {
+                        state.current = i;
+                        break;
+                    }
+                }
+            }
+        }
+    };
+    
     var combine_entries = function() {
         state.entries = [].concat(state.entries_dirs).concat(state.entries_files);
+        parse_file();
     };
     
     var sort_entries = function() {
@@ -105,6 +144,7 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
                 $http.get('backend.php?c=list&p='+path).success(function(data) {
                     $rootScope.error = '';
                     if (data.success == true) {
+                        state.path = path;
                         parse_entries(data.entries);
                         callback(state);
                     } else {
@@ -112,20 +152,12 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
                     }
                 });
             } else {
+                parse_file();
                 callback(state);
             }
         },
         path: pathfun,
-        file: function() {
-            var file = $route.current.params['file'];
-            if (typeof file !== 'string' || file.length < 1) {
-                file = '';
-            }
-            return file;
-        },
-        path_file: function() {
-            return this.path() + '/' + this.file();
-        },
+        file: filefun,
         toolbar: {
             options: ['auto', 'name', 'date'],
             click: function(type) {
@@ -139,16 +171,31 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
                     state.sort_reverse = false;
                     sort_entries();
                 }
-                this.class.auto = '';
-                this.class.name = '';
-                this.class.date = '';
-                this.class[state.sort_type] = state.sort_reverse?'glyphicon-sort-by-attributes-alt':'glyphicon-sort-by-attributes';
+                $route.reload();
             },
-            class: {
-                auto: 'glyphicon-sort-by-attributes',
-                name: '',
-                date: ''
+            class: function(type) {
+                if (type == state.sort_type) {
+                    return state.sort_reverse?'glyphicon-sort-by-attributes-alt':'glyphicon-sort-by-attributes';
+                } else {
+                    return '';
+                }
             }
+        },
+        previous: function() {
+            if (state.current != 0) {
+                $location.url(state.entries_files[state.current - 1].link.slice(1));
+            }
+        },
+        next: function() {
+            if (state.current != (state.entries_files.length - 1)) {
+                $location.url(state.entries_files[state.current + 1].link.slice(1));
+            }
+        },
+        first: function() {
+            $location.url(state.entries_files[0].link.slice(1));
+        },
+        last: function() {
+            $location.url(state.entries_files[state.entries_files.length - 1].link.slice(1));
         }
     };
 });

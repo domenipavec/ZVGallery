@@ -22,6 +22,17 @@ zvg.config(function($routeProvider) {
     });
 });
 
-zvg.controller('ImageController', function($scope, $pathList) {
-    $scope.filepath = $pathList.path_file();
+zvg.controller('ImageController', function($scope, $pathList, $rootScope, $document, $location) {
+    var state = null;
+    $pathList.get(function(s) {
+        state = s;
+        if (state.current === null) {
+            $rootScope.error = "Not a valid file.";
+        } else {
+            $scope.show = true;
+            $scope.entry = state.entries_files[state.current];
+        }
+        $scope.nextImage = $pathList.next;
+        $scope.previousImage = $pathList.previous;
+    });
 });
