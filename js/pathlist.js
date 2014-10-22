@@ -20,6 +20,7 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
         path: '',
         entries_files: [],
         entries_dirs: [],
+        entries: [],
         sort_type: 'auto',
         sort_reverse: false
     };

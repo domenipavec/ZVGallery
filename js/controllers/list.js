@@ -22,8 +22,27 @@ zvg.config(function($routeProvider) {
     });
 });
 
-zvg.controller('ListController', function($scope, $pathList) {
-    $pathList.get(function(state) {
-        $scope.state = state;
+zvg.controller('ListController', function($scope, $pathList, $timeout) {
+    var state = null;
+    var n = 0;
+    $scope.scrollDisabled = true;
+    
+    $pathList.get(function(s) {
+        state = s;
+        $scope.scrollDisabled = false;
     });
+    
+    $scope.scroll = function() {
+        $scope.scrollDisabled = true;
+        $timeout(function() {
+            n += 12;
+            if (n > state.entries.length) {
+                n = state.entries.length;
+            }
+            $scope.entries = state.entries.slice(0,n);
+            if (n < state.entries.length) {
+                $scope.scrollDisabled = false;
+            }
+        });
+    }
 });

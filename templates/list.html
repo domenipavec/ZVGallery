@@ -1,5 +1,5 @@
-<div class="row" id="zvg-thumbnails">
-    <div class="col-lg-2 col-md-3 col-sm-4" ng-repeat="entry in state.entries">
+<div class="row" id="zvg-thumbnails" infinite-scroll="scroll()" infinite-scroll-disabled="scrollDisabled" infinite-scroll-distance="1">
+    <div class="col-lg-2 col-md-3 col-sm-4" ng-repeat="entry in entries">
         <div class="thumbnail" ng-class="{'thumbnail-dir': entry.dir}">
             <div class="zvg-image">
                 <a href="{{ entry.link }}" title="{{entry.name}}">
