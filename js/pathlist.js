@@ -79,6 +79,7 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
                 thumbnail: 'backend.php?c=thumbnail&p='+entry.fullpath,
                 image: 'backend.php?c=image&p='+entry.fullpath,
                 video: 'backend.php?c=video&p='+entry.fullpath,
+                download: 'backend.php?c=download&p='+entry.fullpath,
                 link: entry_link(entry),
                 name: entry.name,
                 file: entry.file,
