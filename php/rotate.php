@@ -29,34 +29,29 @@ $type = get_filetype($gallerypath);
 if (!preg_match('/image\/?.*/', $type)) {
     die("Not an image.");
 }
+if (array_key_exists('d', $_GET) && $_GET['d'] == 'ccw') {
+    $rotate = '-90';
+} else {
+    $rotate = '90';
+}
 
 $imagepath = $_ZVG['tmp_folder'] . '/images' . $fullpath;
+$thumbnailpath = $_ZVG['tmp_folder'] . '/thumbnails' . rtrim($fullpath, '/') . '.jpg';
 
-// make image subdir if does not exist
-$dir = pathinfo($imagepath);
-$dir = $dir['dirname'];
-if (!is_dir($dir)) {
-    mkdir($dir, 0777, true);
+$cmd = 'convert  "';
+$cmd .= $gallerypath;
+$cmd .= '" -rotate ';
+$cmd .= $rotate;
+$cmd .= ' "';
+$cmd .= $gallerypath;
+$cmd .= '"';
+exec($cmd);
+
+if (is_file($imagepath)) {
+    unlink($imagepath);
+}
+if (is_file($thumbnailpath)) {
+    unlink($thumbnailpath);
 }
 
-if (!is_file($imagepath)) {
-    $cmd = 'convert  "';
-    $cmd .= $gallerypath;
-    $cmd .= '" -quality ';
-    $cmd .= $_ZVG['image_quality'];
-    $cmd .= ' -resize ';
-    $cmd .= $_ZVG['image_width'];
-    $cmd .= 'x';
-    $cmd .= $_ZVG['image_height'];
-    $cmd .= '\\> "';
-    $cmd .= $imagepath;
-    $cmd .= '"';
-    exec($cmd);
-}
-
-
-header("X-Sendfile: $imagepath");
-header("Content-type: $type");
-header("Cache-control: public, no-cache");
-header("Expires: " . gmdate('D, d M Y H:i:s', time() + 3600) . " GMT");
-header_remove('Pragma');
+print "Successful.";

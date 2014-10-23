@@ -143,6 +143,6 @@ if (($thumbnailpath = get_thumbnail($_GET['p'])) === FALSE) {
 
 header("X-Sendfile: $thumbnailpath");
 header("Content-type: image/jpeg");
-header("Cache-control: public, max-age=3600");
+header("Cache-control: public, no-cache");
 header("Expires: " . gmdate('D, d M Y H:i:s', time() + 3600) . " GMT");
 header_remove('Pragma');

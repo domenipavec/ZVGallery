@@ -80,12 +80,14 @@ zvg.factory('$pathList', function ($route, $rootScope, $http, $location, $filter
                 image: 'backend.php?c=image&p='+entry.fullpath,
                 video: 'backend.php?c=video&p='+entry.fullpath,
                 download: 'backend.php?c=download&p='+entry.fullpath,
+                rotate: 'backend.php?c=rotate&p='+entry.fullpath,
                 link: entry_link(entry),
                 name: entry.name,
                 file: entry.file,
                 glyph: entry_glyph(entry),
                 date: entry.date,
-                dir: entry.type == 'dir'
+                dir: entry.type == 'dir',
+                isVideo: /video\/?.*/.test(entry.type)
             };
             if (entry.type == 'dir') {
                 state.entries_dirs.push(parsed);

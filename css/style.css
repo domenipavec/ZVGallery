@@ -30,7 +30,10 @@
     position:absolute;
 }
 .zvg-image {
-    max-height: 90vh;
+    max-height: 75vh;
+}
+.zvg-video {
+    max-width: 133vh;
 }
 .flip {
   -moz-transform: scaleX(-1);    /* Gecko */
@@ -51,9 +54,13 @@
 .zvg-fullscreen .panel-footer {
     display: none;
 }
-.zvg-fullscreen img {
+.zvg-fullscreen .zvg-image {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
+    max-height: 100vh;
+}
+.zvg-fullscreen .zvg-video {
+    max-width: none;
 }

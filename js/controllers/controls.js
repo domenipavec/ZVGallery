@@ -22,7 +22,7 @@ zvg.directive('zvgControls', function() {
 });
 
 
-zvg.controller('ControlsController', function($scope, $pathList, $document, $rootScope, Fullscreen, $timeout) {
+zvg.controller('ControlsController', function($scope, $pathList, $document, $rootScope, Fullscreen, $timeout, $http, $route) {
     var state = null;
     $pathList.get(function(s) {
         state = s;
@@ -34,6 +34,7 @@ zvg.controller('ControlsController', function($scope, $pathList, $document, $roo
             $scope.previous = $pathList.previous;
             $scope.last = $pathList.last;
             $scope.first = $pathList.first;
+            $scope.isVideo = state.entries_files[state.current].isVideo;
         }
     });
     
@@ -41,12 +42,28 @@ zvg.controller('ControlsController', function($scope, $pathList, $document, $roo
         if (!Fullscreen.isEnabled()) {
             angular.element("#zvg-content").removeClass("zvg-fullscreen");
         }
-    })
-    ;
+    });
+    
     $scope.toggleFullscreen = function() {
         var element = angular.element("#zvg-content");
         Fullscreen.enable(element[0]);
         element.addClass("zvg-fullscreen");
+    };
+    
+    $scope.rotateCW = function() {
+        $http.get(state.entries_files[state.current].rotate + '&d=cw').success(function() {
+            $scope.entry.image += '&rotated';
+            $scope.entry.thumbnail += '&rotated';
+            $route.reload();
+        });
+    };
+    
+    $scope.rotateCCW = function() {
+        $http.get(state.entries_files[state.current].rotate + '&d=ccw').success(function() {
+            $scope.entry.image += '&rotated';
+            $scope.entry.thumbnail += '&rotated';
+            $route.reload();
+        });
     };
     
     // bind keys
