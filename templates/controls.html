@@ -1,11 +1,25 @@
-<div class="panel-footer text-center" ng-controller="ControlsController">
-    <div class="pull-left">
-        <a href title="{{ 'First' | translate}}" ng-hide="isFirst" ng-click="first()"><span class="glyphicon glyphicon-step-backward"></span></a>
-        <a href title="{{ 'Previous' | translate}}" ng-hide="isFirst" ng-click="previous()"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    </div>
-    <strong>{{entry.name}}</strong>
-    <div class="pull-right">
-        <a href title="{{ 'Next' | translate}}" ng-hide="isLast" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
-        <a href title="{{ 'Last' | translate}}" ng-hide="isLast" ng-click="last()"><span class="glyphicon glyphicon-step-forward"></span></a>
+<div class="panel-footer" ng-controller="ControlsController">
+    <div class="row">
+        <div class="col-xs-2 col-sm-1">
+            <a href title="{{ 'First' | translate}}" ng-hide="isFirst" ng-click="first()"><span class="glyphicon glyphicon-step-backward"></span></a>
+            <a href title="{{ 'Previous' | translate}}" ng-hide="isFirst" ng-click="previous()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        </div>
+        <div class="col-xs-5 col-sm-8 text-center">
+            <strong>{{entry.name}}</strong>
+        </div>
+        <div class="col-xs-3 col-sm-2">
+            <div class="pull-right">
+                <a href="{{entry.download}}" title="{{ 'Download' | translate}}"><span class="glyphicon glyphicon-download"></span></a>&nbsp;
+                <a href title="{{ 'Rotate CCW' | translate}}" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-repeat flip"></span></a>&nbsp;
+                <a href title="{{ 'Rotate CW' | translate}}" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-repeat"></span></a>&nbsp;
+                <a href title="{{ 'Fullscreen' | translate}}" ng-click="toggleFullscreen()"><span class="glyphicon glyphicon-fullscreen"></span></a>&nbsp;
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-1">
+            <div class="pull-right">
+                <a href title="{{ 'Next' | translate}}" ng-hide="isLast" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href title="{{ 'Last' | translate}}" ng-hide="isLast" ng-click="last()"><span class="glyphicon glyphicon-step-forward"></span></a>
+            </div>
+        </div>
     </div>
 </div>

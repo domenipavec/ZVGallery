@@ -21,7 +21,8 @@ zvg.directive('zvgControls', function() {
     };
 });
 
-zvg.controller('ControlsController', function($scope, $pathList, $document, $rootScope) {
+
+zvg.controller('ControlsController', function($scope, $pathList, $document, $rootScope, Fullscreen, $timeout) {
     var state = null;
     $pathList.get(function(s) {
         state = s;
@@ -36,8 +37,19 @@ zvg.controller('ControlsController', function($scope, $pathList, $document, $roo
         }
     });
     
+    $rootScope.$on('FBFullscreen.change', function() {
+        if (!Fullscreen.isEnabled()) {
+            angular.element("#zvg-content").removeClass("zvg-fullscreen");
+        }
+    })
+    ;
+    $scope.toggleFullscreen = function() {
+        var element = angular.element("#zvg-content");
+        Fullscreen.enable(element[0]);
+        element.addClass("zvg-fullscreen");
+    };
+    
     // bind keys
-    angular.element($document).unbind("keydown");
     angular.element($document).bind("keydown", function(event) {
         $rootScope.$apply(function() {
             if (event.which == 39) { // right key
@@ -46,5 +58,10 @@ zvg.controller('ControlsController', function($scope, $pathList, $document, $roo
                 $pathList.previous();
             }
         });
+    });
+    
+    $scope.$on('$destroy', function() {
+        angular.element($document).unbind("keydown");
+        $rootScope.isFullscreen = false;
     });
 });

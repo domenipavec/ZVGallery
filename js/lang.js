@@ -33,7 +33,11 @@ zvg.config(function($translateProvider) {
         'First': 'First',
         'Previous': 'Previous',
         'Next': 'Next',
-        'Last': 'Last'
+        'Last': 'Last',
+        'Download': 'Download',
+        'Rotate CW': 'Rotate CW',
+        'Rotate CCW': 'Rotate CCW',
+        'Fullscreen': 'Fullscreen'
     });
     
     $translateProvider.translations('sl', {
@@ -53,7 +57,11 @@ zvg.config(function($translateProvider) {
         'First': 'Prva',
         'Previous': 'Prejšnja',
         'Next': 'Naslednja',
-        'Last': 'Zadnja'
+        'Last': 'Zadnja',
+        'Download': 'Prenesi na disk',
+        'Rotate CW': 'Zasukaj desno',
+        'Rotate CCW': 'Zasukaj levo',
+        'Fullscreen': 'Čez cel zaslon'
     });
     
     $translateProvider.registerAvailableLanguageKeys(['en', 'sl'], {

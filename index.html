@@ -82,7 +82,9 @@
     
     <div class="alert alert-danger" role="alert" ng-show="error">{{ error | translate }}</div>
 
-    <div ng-view></div>
+    <div id="zvg-content">
+        <div ng-view></div>
+    </div>
 
 </div>
     
@@ -93,6 +95,7 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="js/angular-translate.min.js"></script>
 <script src="js/ng-infinite-scroll.min.js"></script>
+<script src="js/angular-fullscreen.js"></script>
 <script src="js/base.js"></script>
 <script src="js/lang.js"></script>
 <script src="js/pathlist.js"></script>

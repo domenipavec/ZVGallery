@@ -15,17 +15,45 @@
 .vjs-fullscreen {
     padding-top: 0px;
 }
-.thumbnail-dir {
+.zvg-thumbnail-dir {
     background-color: #f5f5f5;
 }
-#zvg-thumbnails .thumbnail .zvg-image {
+.zvg-thumbnail-container {
     padding-bottom:75%;
     height:0;
     position:relative;
 }
-#zvg-thumbnails .thumbnail img {
+.zvg-thumbnail {
     width:100%;
     height:100%;
     display:block;
     position:absolute;
+}
+.zvg-image {
+    max-height: 90vh;
+}
+.flip {
+  -moz-transform: scaleX(-1);    /* Gecko */
+  -o-transform: scaleX(-1);      /* Operah */
+  -webkit-transform: scaleX(-1); /* webkit */
+  transform: scaleX(-1);         /* standard */
+  filter: FlipH;                 /* IE 6/7/8 */
+}
+.zvg-fullscreen .panel-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+
+}
+.zvg-fullscreen .panel-footer {
+    display: none;
+}
+.zvg-fullscreen img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
